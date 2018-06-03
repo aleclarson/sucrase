@@ -8,8 +8,7 @@
   "module": "dist/src/index.mjs",
   "types": "dist/src/index.d.ts",
   "files": [
-    "dist",
-    "register"
+    "dist"
   ],
   "scripts": {
     "build": "script/sucrase-node script/build.ts",
@@ -70,8 +69,7 @@
   },
   "dependencies": {
     "lines-and-columns": "^1.1.6",
-    "mz": "^2.7.0",
-    "pirates": "^3.0.2"
+    "mz": "^2.7.0"
   },
   "engines": {
     "node": ">=8"

@@ -168,9 +168,10 @@ export default class CJSImportProcessor {
             "_interopRequireWildcard",
           );
         }
-        requireCode += ` var ${secondaryImportName} = ${
-          this.interopRequireWildcardName
-        }(${primaryImportName});`;
+        const moduleExpr = this.enableLegacyTypeScriptModuleInterop
+          ? primaryImportName
+          : `${this.interopRequireWildcardName}(${primaryImportName})`;
+        requireCode += ` var ${secondaryImportName} = ${moduleExpr}`;
       } else if (defaultNames.length > 0 && secondaryImportName !== primaryImportName) {
         if (!this.interopRequireDefaultName) {
           this.interopRequireDefaultName = this.nameManager.claimFreeName("_interopRequireDefault");

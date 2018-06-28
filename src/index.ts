@@ -53,8 +53,8 @@ export interface Options {
 }
 
 export interface TransformResult {
-  code: string;
-  sourceMap?: RawSourceMap;
+  content: string;
+  map?: RawSourceMap;
 }
 
 export interface SucraseContext {
@@ -78,15 +78,18 @@ export function transform(code: string, options: Options): TransformResult {
       Boolean(options.enableLegacyBabel5ModuleInterop),
       options,
     );
-    let result: TransformResult = {code: transformer.transform()};
+    let result: TransformResult = {
+      content: transformer.transform()
+    };
     if (options.sourceMapOptions) {
       if (!options.filePath) {
         throw new Error("filePath must be specified when generating a source map.");
       }
-      result = {
-        ...result,
-        sourceMap: computeSourceMap(result.code, options.filePath, options.sourceMapOptions),
-      };
+      result.map = computeSourceMap(
+        result.content,
+        options.filePath,
+        options.sourceMapOptions
+      );
     }
     return result;
   } catch (e) {
